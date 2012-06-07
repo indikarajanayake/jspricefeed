@@ -32,7 +32,7 @@ var symbols = {
 exports.symbols = function(req, res) {
     // don't let nameless people view the items, redirect them back to the homepage
     if (typeof req.session.username == 'undefined') res.redirect('/');
-    else res.render('price', { title: 'Ninja Store - Items', username: req.session.username, symbols:symbols });
+    else res.render('price', { title: 'Price Feed - Items', username: req.session.username, symbols:symbols });
 };
 
 // handler for displaying individual items
@@ -42,6 +42,6 @@ exports.symbol = function(req, res) {
     else {
         var name = symbols[req.params.id].name;
         var price = symbols[req.params.id].price;
-        res.render('price', { title: 'Ninja Store - ' + name, username: req.session.username, name:name, min:min ,max:max});
+        res.render('price', { title: 'Price Feed - ' + name, username: req.session.username, name:name, min:min ,max:max});
     }
 };
