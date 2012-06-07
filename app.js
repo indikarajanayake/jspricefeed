@@ -51,7 +51,12 @@ app.get('/price/:id', routes.symbol);
 
 var priceProvider= new PriceProvider();
 
-
+app.get('/logout', function(req, res) {
+    // delete the session variable
+    delete req.session.username;
+    // redirect user to homepage
+    res.redirect('/');
+});
 
 
 var port = process.env.PORT || 5000;
