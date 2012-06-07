@@ -1,0 +1,8 @@
+h1= title
+#pricelist
+    - each price in pricelist
+      div.price
+        div.created_at= price.created_at
+        div.title 
+            a(href="/blog/"price._id)!= price.title
+        div.body= price.body

@@ -1,0 +1,14 @@
+
+table
+  thead
+    tr
+      th symbol
+      th min
+      th max
+  tbody
+    - for (var id in symbols)
+        - var symbol = symbols[id]
+            tr
+              td= symbol.name
+              td= symbol.max
+              td= symbol.min

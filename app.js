@@ -4,12 +4,12 @@
  */
 
 var express = require('express')
-  , routes = require('./routes');
+  , routes = require('./routes/pricefeed');
   
 
 var app = module.exports = express.createServer();
 
-var ArticleProvider = require('./article_provider.js').ArticleProvider;
+var PriceProvider = require('./priceprovider.js').PriceProvider;
 
 
 // Configuration
@@ -35,43 +35,23 @@ app.configure('production', function(){
 
 // Routes
 
-//app.get('/', routes.index);
-
-
-var users=[{name:'indika',email:'indika.@gamil.com'},
-		   {name:'indika',email:'indika.@gamil.com'},
-		   {name:'indika',email:'indika.@gamil.com'},
-		   {name:'indika',email:'indika.@gamil.com'},
-		   {name:'indika',email:'indika.@gamil.com'}				
-			]
+app.get('/', routes.home);
 
 
 
 
+app.post('/', routes.home_post_handler);
 
-app.get('/', function(req, res){
-    res.render('index',{users:users});
-});
-
-
-
-app.get('/users',function(req,res){
-	res.render('users',{users:users});
-});
-
-var articleProvider= new ArticleProvider();
+// display the list of item
+app.get('/price', routes.symbols);
+// show individual item
+app.get('/price/:id', routes.symbol);
 
 
 
-app.get('/article', function(req, res){
-    articleProvider.findAll( function(error,docs){
-        res.render('article', { locals: {
-            title: 'Blog',
-            articles:docs
-            }
-        });
-    })
-});
+var priceProvider= new PriceProvider();
+
+
 
 
 
