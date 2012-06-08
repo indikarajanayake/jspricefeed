@@ -8,12 +8,12 @@ var express = require('express')
   
 
 var app = module.exports = express.createServer();
-
+//initialized price feed provider
 var PriceProvider = require('./priceprovider.js').PriceProvider;
+var priceProvider= new PriceProvider();
 
 
 // Configuration
-
 app.configure(function(){
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
@@ -34,23 +34,20 @@ app.configure('production', function(){
 });
 
 // Routes
-
+//handler for get request
 app.get('/', routes.home);
-
-
-
-
+//handler for post request
 app.post('/', routes.home_post_handler);
 
-// display the list of item
+
+// display the list of symbols with price
 app.get('/price', routes.symbols);
-// show individual item
+// show individual sybmbol price
 app.get('/price/:id', routes.symbol);
 
 
 
-var priceProvider= new PriceProvider();
-
+//handler for log out requets
 app.get('/logout', function(req, res) {
     // delete the session variable
     delete req.session.username;
